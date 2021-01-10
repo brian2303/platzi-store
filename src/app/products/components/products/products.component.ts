@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../product/product.model'
-
+import { ProductsService } from '../../../core/services/products/products.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -8,58 +8,27 @@ import { IProduct } from '../product/product.model'
 })
 export class ProductsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private productService:ProductsService
 
-  public products:IProduct [] = [
-    {
-      id: '1',
-      image: 'assets/images/camiseta.png',
-      title: 'Camiseta',
-      price: 80000,
-      description: 'bla bla bla bla bla'
-    },
-    {
-      id: '2',
-      image: 'assets/images/hoodie.png',
-      title: 'Hoodie',
-      price: 80000,
-      description: 'bla bla bla bla bla'
-    },
-    {
-      id: '3',
-      image: 'assets/images/mug.png',
-      title: 'Mug',
-      price: 80000,
-      description: 'bla bla bla bla bla'
-    },
-    {
-      id: '4',
-      image: 'assets/images/pin.png',
-      title: 'Pin',
-      price: 80000,
-      description: 'bla bla bla bla bla'
-    },
-    {
-      id: '5',
-      image: 'assets/images/stickers1.png',
-      title: 'Stickers',
-      price: 80000,
-      description: 'bla bla bla bla bla'
-    },
-    {
-      id: '6',
-      image: 'assets/images/stickers2.png',
-      title: 'Stickers',
-      price: 80000,
-      description: 'bla bla bla bla bla'
-    }
-  ];
+  ) {}
 
+  public products:IProduct [] = [];
+
+  //en este metodo hacemos la llamada a servicios.
   ngOnInit(): void {
+    this.fetchProducts();
   }
 
   clickProducto(id:number){
     console.log('product');
     console.log(id);
+  }
+  //me trae todos los productos del webService
+  fetchProducts(){
+    this.productService.getAllProducts()
+    .subscribe(products =>{
+      this.products = products;
+    })
   }
 }

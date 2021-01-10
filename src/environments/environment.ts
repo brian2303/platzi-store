@@ -2,8 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+//aca podemos guardar las urls que apuntan hacia la api de tal manera si cambia 
+//tenemos mas control sobre la url y no tenemos que cambiarla en todo los archivos.
 export const environment = {
-  production: false
+  production: false,
+  url_api : 'http://platzi-store.herokuapp.com'
 };
 
 /*

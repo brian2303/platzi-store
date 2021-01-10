@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule,PreloadAllModules } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
+import { AdminGuard } from  './admin.guard';
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'order',
+        loadChildren: () => import('./order/order.module')
+                            .then(m => m.OrderModule)
+      },
+      {
         path: 'home',
         loadChildren: () => import('./home/home.module')
                             .then(m => m.HomeModule)
@@ -23,23 +29,23 @@ const routes: Routes = [
                             .then(m => m.ProductsModule)
       },
       {
-        // doble asterico se refiere a page not found
-        path : 'products/:id',
-        loadChildren: () => import('./product-detail/product-detail.module')
-                            .then(m => m.ProductsDetailModule)
-      },
-      {
         path : 'contact',
+        canActivate : [AdminGuard],
         loadChildren : () => import('./contact/contact.module')
                             .then(m => m.ContactModule)
       },
-      {
-        // doble asterico se refiere a page not found
-        path : '**',
-        loadChildren: () => import('./page-not-found/pagenotfound.module')
-                            .then(m => m.PageNotFoundModule)
-      }
     ]
+  },
+  {
+    path :'admin',
+    loadChildren :() => import('./admin/admin.module')
+                  .then(m => m.AdminModule)
+  },
+  {
+    // doble asterico se refiere a page not found
+    path : '**',
+    loadChildren: () => import('./page-not-found/pagenotfound.module')
+                        .then(m => m.PageNotFoundModule)
   }
 ];
 

@@ -1,0 +1,16 @@
+<!-- va pintar el product solo si ya llego la información de la rest api -->
+<div *ngIf="product">
+    <div>
+        <img [src]="product.image" [alt]="product.title">
+    <div>
+        <ul>
+            <li>Nombre {{ product.title | uppercase }}</li>
+            <li>Precio: {{ product.price |currency }} </li>
+        </ul>
+        <p>{{ product.description}}</p>
+        <button (click)="createProduct()">Nuevo</button>
+        <button (click)="updateProduct()">Modificar</button>
+        <button (click)="deleteProduct('11')">Eliminar</button>
+    </div>
+</div>
+
